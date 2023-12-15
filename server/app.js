@@ -1,18 +1,20 @@
 const express = require("express");
 const morgan = require("morgan");
 require("dotenv").config();
-const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
-const bcrypt = require("bcryptjs");
 const cors = require("cors");
-
+const authRoutes = require("./routes/userRoute");
 const connectDB = require("./DB/db");
 const app = express();
+
 app.use(morgan("dev"));
+app.use(bodyParser.json());
 app.use(express.json());
 app.use(cors());
 
 const PORT = 3000;
+
+app.use("/api/v1", authRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello Wordl");
