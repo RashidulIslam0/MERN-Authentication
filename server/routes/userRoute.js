@@ -5,6 +5,7 @@ const bcrypt = require("bcryptjs");
 
 const User = require("../models/userModel");
 
+// Created Register
 router.post("/register", async (req, res) => {
   try {
     const { email, username, password } = req.body;
@@ -15,6 +16,17 @@ router.post("/register", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Error signing up" });
+  }
+});
+
+// Get Register
+router.get("/register", async (req, res) => {
+  try {
+    const users = await User.find();
+    res.status(201).json({ message: "User Get successfully", users });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Unable to get user" });
   }
 });
 
